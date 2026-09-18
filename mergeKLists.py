@@ -1,3 +1,5 @@
+# 23. Merge k Sorted Lists
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -18,19 +20,15 @@ class Solution:
                 else:
                     head = l2
                     head.next = merge(l1, l2.next)
-                return [head]
-
-
+                return head
+    
+        if not lists:
+            return None
         lst_len = len(lists)
         if  lst_len <= 1:
-            return lists
+            return lists[0]
         
         else:
             l1 = self.mergeKLists(lists[:lst_len // 2])
             l2 = self.mergeKLists(lists[lst_len // 2:])
-            # if l1:
-            #     l1 = l1[0]
-            # if l2:
-            #     # print(l2.val)
-            #     l2 = l2[0]
-            return merge(l2[0], l1[0])[0]
+            return merge(l2, l1) 
