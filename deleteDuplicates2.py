@@ -1,4 +1,4 @@
-# 83. Remove Duplicates from Sorted List
+# 82. Remove Duplicates from Sorted List II
 
 # Definition for singly-linked list.
 # class ListNode:
@@ -9,12 +9,13 @@ class Solution:
     def deleteDuplicates(self, head: ListNode | None) -> ListNode | None:
         if not head or not head.next:
             return head
-        
+        elif head.val == head.next.val:
+            val = head.val
+            while head:
+                if head.val != val:
+                    break
+                head = head.next
+            return self.deleteDuplicates(head)
         else:
-            if head.val == head.next.val:
-                head = self.deleteDuplicates(head.next)
-            
-            else:
-                head.next = self.deleteDuplicates(head.next)
-            
+            head.next = self.deleteDuplicates(head.next)
             return head
