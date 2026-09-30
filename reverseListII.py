@@ -1,3 +1,5 @@
+# 92. Reverse Linked List II
+
 # Definition for singly-linked list.
 # class ListNode:
 #     def __init__(self, val=0, next=None):
@@ -10,26 +12,29 @@ class Solution:
         
         cur = head
         left_link = head
-        tail = head
+        left_node = head
         prev = None
         i = 1
         while i <= right:
             if i == left - 1:
                 left_link = cur
-                tail = cur.next
+                left_node = cur.next
                 cur = cur.next
             elif i >= left:
                 h = cur
                 cur = cur.next
                 h.next = prev
                 prev = h
+            else:
+                cur = cur.next
             i += 1
         
-        if head == tail:
+        if head == left_node:
             head = prev
         else:
             left_link.next = prev
-            tail.next = cur
+        
+        left_node.next = cur
     
         return head
 
