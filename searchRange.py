@@ -2,28 +2,36 @@
 
 class Solution:
     def searchRange(self, nums: list[int], target: int) -> list[int]:
+        left = -1
+        right = -1
         l = len(nums)
-        st, end, mid = 0, l, l // 2
+        st, end, mid = 0, l - 1, l // 2
+
+        if not nums:
+            return [-1, -1]
 
         while st <= end:
-            if target == nums[mid]:
-                if mid > 0 and nums[mid - 1] == target:
-                    return [mid - 1, mid]
-                if mid < l - 1 and nums[mid + 1] == target:
-                    return [mid, mid + 1] 
-                return [mid, mid]
-            elif target > nums[mid]:
-                st = mid + 1
-                mid = (st + end) // 2
-            else:
+            if nums[mid] == target:
+                left = mid
                 end = mid - 1
-                mid = (st + end) // 2
+            elif target < nums[mid]:
+                end = mid - 1
+            else:
+                st = mid + 1
+            mid = (st + end) // 2
+        
+        st, end, mid = 0, l - 1, l // 2
 
-        return [-1, -1]
+        while st <= end:
+            if nums[mid] == target:
+                    right = mid
+                    st = mid + 1
+            elif target < nums[mid]:
+                end = mid - 1
+            else:
+                st = mid + 1
+            mid = (st + end) // 2
+
+        return [left, right]
 
 
-s = Solution()
-
-nums = [1, 1, 1, 1]
-
-print(s.searchRange(nums, 1))
